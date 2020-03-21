@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<style>
+    .key_button {
+        background-color: rosybrown;
+        border: none;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        font-size: 25px;
+        margin: 4px 2px;
+        width: 80px;
+        height: 80px;
+    }
+    .zero_button{ width: 168px;}
+    .ops_buttons{background-color: darkgray}
+    .other_buttons{background-color: #dbc3c3}
+    .calculation_bar{
+        background-color: #a36666;
+        border: none;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        font-size: 50px;
+        width: 320px;
+        height: 80px;
+        margin-left: 500px;
+        margin-top: 150px;
+    }
+
+</style>
+</head>
+<body>
+    <p  id="calc_bar" class = "calculation_bar"></p>
+
+    <div style = "margin-left: 500px; margin-top: 4px">
+        <button class = "key_button zero_button other_buttons" onclick="allClear()">AC</button>
+        <button class = "key_button other_buttons"  onclick="setOperator('%')">%</button>
+        <button class = "key_button ops_buttons" onclick="setOperator('/')">/</button>
+    </div>
+    <div style = "margin-left: 500px; margin-top: 4px">
+        <button class = "key_button"  onclick="setInputs(7)">7</button>
+        <button class = "key_button"  onclick="setInputs(8)">8</button>
+        <button class = "key_button"  onclick="setInputs(9)">9</button>
+        <button class = "key_button ops_buttons" onclick="setOperator('x')">x</button>
+
+    </div>
+    <div style = "margin-left: 500px; margin-top: 4px">
+        <button class = "key_button" onclick="setInputs(4)">4</button>
+        <button class = "key_button" onclick="setInputs(5)">5</button>
+        <button class = "key_button" onclick="setInputs(6)">6</button>
+        <button class = "key_button ops_buttons" onclick="setOperator('-')">-</button>
+
+    </div>
+    <div style = "margin-left: 500px; margin-top: 4px">
+        <button class = "key_button" onclick="setInputs(1)">1</button>
+        <button class = "key_button" onclick="setInputs(2)">2</button>
+        <button class = "key_button" onclick="setInputs(3)">3</button>
+        <button class = "key_button ops_buttons" onclick="setOperator('+')">+</button>
+
+    </div>
+    <div style = "margin-left: 500px; margin-top: 4px">
+        <button class = "key_button zero_button" onclick="setInputs(0)">0</button>
+        <button class = "key_button" onclick="">.</button>
+        <button class = "key_button ops_buttons" onclick="calculate()">=</button>
+    </div>
+
+<script type="application/javascript">
+    var first_input = null;
+    var second_input = null;
+    var operation = null;
+    function setInputs(input){
+        if(operation == null){          //On first number
+            first_input *= 10;
+            first_input += input;
+            document.getElementById("calc_bar").innerHTML = first_input;
+        }
+        else{
+            second_input*=10;
+            second_input+= input;
+            document.getElementById("calc_bar").innerHTML = first_input + " " + operation + " " + second_input;
+        }
+    }
+
+    function setOperator(operator){
+        if(first_input!== null){
+            operation = operator;
+            document.getElementById("calc_bar").innerHTML = first_input + " " + operation;
+        }
+    }
+
+    function calculate() {
+        var output;
+        if(operation != null){
+            if(operation==="+"){
+                output = first_input + second_input
+            }
+            else if(operation === "-"){
+                output = first_input - second_input;
+            }
+            else if(operation === "x"){
+                output = first_input * second_input;
+            }
+            else if(operation === "/"){
+                output = first_input / second_input;
+            }
+            else if(operation === "%"){
+                output = first_input % second_input;
+            }
+            document.getElementById("calc_bar").innerHTML = output;
+            operation = null;
+            first_input = null;
+            second_input = null;
+        }
+    }
+
+    function allClear(){
+        operation = null;
+        first_input = null;
+        second_input = null;
+        document.getElementById("calc_bar").innerHTML = '';
+    }
+
+</script>
+</body>
+</html>
